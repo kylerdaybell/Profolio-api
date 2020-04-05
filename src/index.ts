@@ -15,8 +15,8 @@ if (result.error) {
 const IUserRepository = new MySqlUserRepository();
 const IUserService = new DummyUserService(IUserRepository);
 let homecontroller = new HomeController();
-let usercontroller = new UserController(IUserService);
 let IAuthenticationService = new JWTAuthenticationService(IUserService);
+let usercontroller = new UserController(IUserService,IAuthenticationService);
 
 
 
@@ -30,7 +30,7 @@ app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
 console.log(process.env.PORT)
 console.log(process.env.ACCESS_TOKEN)
 
-app.get('/',IAuthenticationService.authenticateToken,(req,res)=>homecontroller.GetRoot(req,res));
+app.get('/',(req,res)=>usercontroller.GetRoot(req,res));
 app.post('/Register',(req,res)=>usercontroller.PostRegister(req,res))
 app.post('/Login',(req,res)=>IAuthenticationService.AuthenticateUser(req,res))
 app.post('/DeleteAccount',(req,res)=>usercontroller.PostDeleteUser(req,res));
