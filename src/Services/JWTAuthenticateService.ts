@@ -2,9 +2,6 @@ import { Request, Response } from "express"
 import { IAuthenticationService } from "./IAuthenticateService";
 import { User } from "../Models/UserModel";
 import { IUserService } from "./IUserService";
-import { createCipher } from "crypto";
-import { promises } from "fs";
-
 const jwt = require('jsonwebtoken');
 
 export class JWTAuthenticationService implements IAuthenticationService{
