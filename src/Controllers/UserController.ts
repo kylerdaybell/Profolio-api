@@ -9,7 +9,7 @@ export class UserController implements IUserController{
         this.iuserservice = iuserservice;
     }
     async PostRegister(req: Request, res: Response):Promise<void> {
-        let user = new User(null,req.body.User.Username,req.body.User.Password,req.body.User.Authorization);
+        let user = new User(null,req.body.User.Email,req.body.User.Password,req.body.User.Authorization);
         if(await this.iuserservice.CreateUser(user)){
             res.write(JSON.stringify({Status:"success",Message:"The user was successfuly added to the database"}));
             res.end(); 
@@ -21,7 +21,7 @@ export class UserController implements IUserController{
         }
     }
     async PostLogin(req: Request, res: Response):Promise<void>{
-        let user = new User(null,req.body.User.Username,req.body.User.Password,req.body.User.Authorization);
+        let user = new User(null,req.body.User.Email,req.body.User.Password,req.body.User.Authorization);
         if(await this.iuserservice.ValidateUser(user)){
             res.write(JSON.stringify({Status:"success",Message:"the user was successfully validated"}));
             res.end(); 
@@ -31,7 +31,7 @@ export class UserController implements IUserController{
         }
     }
     async PostDeleteUser(req: Request, res: Response):Promise<void>  {
-        let user = new User(null,req.body.User.Username,req.body.User.Password,req.body.User.Authorization);
+        let user = new User(null,req.body.User.Email,req.body.User.Password,req.body.User.Authorization);
         if(await this.iuserservice.RemoveUser(user)){
             res.write(JSON.stringify({Status:"success",Message:"the user was successfully removed."}));
             res.end();

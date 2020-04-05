@@ -1,0 +1,15 @@
+POST  http://localhost:80/Login
+Content-Type: application/json
+
+{
+    "User":{
+        "Email":"kyler.daybell@gmail.com",
+        "Password":"kyler",
+        "Authorization":"admin"
+    }
+}
+
+###
+
+GET http://localhost:80/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt5bGVyLmRheWJlbGxAZ21haWwuY29tIiwiYXV0aG9yaXphdGlvbiI6ImFkbWluIiwiaWF0IjoxNTg2MDYxNjc0fQ.dnzlvXbcC7h55D7neru6t7MfHttCtqFTlZCegehyr3U
