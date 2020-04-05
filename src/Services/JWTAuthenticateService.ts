@@ -20,16 +20,26 @@ export class JWTAuthenticationService implements IAuthenticationService{
     }
 
 
-    public async AuthorizeToken(req:Request,res:Response,level: string):Promise<any>{
-        let user = await this.GetSessionUser(req,res);
-        if(user.authorization == level){
+    public async AuthorizeToken(req:Request,res:Response,authorizationLevel: string):Promise<any>{
+        let user = await this.AuthenticateToken(req,res);
+        if(user.authorization == authorizationLevel){
             return user;
         }
         return null;
     }
     
 
-    public async AuthenticateToken(req: Request, res: Response): Promise<boolean>{
+    public async AuthenticateToken(req: Request,res: Response): Promise<any>{
+        if(await this.TokenIsValid(req,res)){
+            let token = this.GetToken(req,res)
+            let decoded = jwt.decode(token, {complete: true});
+            let user = new User(null,decoded.payload.email,decoded.payload.password,decoded.payload.authorization)
+            return user
+        }
+        return null
+    }
+
+    private async TokenIsValid(req: Request, res: Response): Promise<boolean>{
         try{
             const token = this.GetToken(req,res);
             if(token == null){
@@ -46,16 +56,6 @@ export class JWTAuthenticationService implements IAuthenticationService{
         }catch(e){
             return false;
         }
-    }
-
-    private async GetSessionUser(req: Request,res: Response): Promise<any>{
-        if(await this.AuthenticateToken(req,res)){
-            let token = this.GetToken(req,res)
-            let decoded = jwt.decode(token, {complete: true});
-            let user = new User(null,decoded.payload.email,decoded.payload.password,decoded.payload.authorization)
-            return user
-        }
-        return null
     }
 
     private GetToken(req:Request,res:Response):any{
