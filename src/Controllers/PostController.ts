@@ -1,18 +1,34 @@
-import {IPostController} from './IPostController'
 import { Request, Response } from "express";
 import { User } from '../Models/UserModel';
 import { Post } from '../Models/PostModel';
 import { IUserService } from '../Services/IUserService';
+import { IAuthenticationService } from "../Services/IAuthenticationService";
+import { IPostService } from "../Services/IPostService";
 
 
-export class PostController implements IPostController{
-    readonly iuserservice: IUserService;
-    constructor(iuserservice :IUserService){
-        this.iuserservice = iuserservice;
+
+export class PostController{
+    iauthenticationservice: IAuthenticationService;
+    ipostservice: IPostService
+    constructor(IAuthenticationService: IAuthenticationService, IPostService: IPostService){
+        this.iauthenticationservice = IAuthenticationService;
+        this.ipostservice = IPostService
     }
-    PostCreatePost(req: Request, res: Response): void {
-        let user = new User(null,req.body.User.Username,req.body.User.Password,req.body.User.Authorization);
-        //let post = new Post(req.body.Post.Username)
+    public async PostCreatePost(req: Request, res: Response): Promise<void> {
+        console.error(req.body)
+        let user:User = await this.iauthenticationservice.AuthenticateToken(req,res)
+        if(user){
+           let post = new Post(0,user.id,req.body.post.title,req.body.post.content)
+        if(await this.ipostservice.CreatePost(user,post)){
+            res.write(JSON.stringify({Status:"success",Message:"Post created successfully"}));
+            res.end();
+            return 
+        }else{
+            res.write(JSON.stringify({Status:"failure",Message:"The post was not created"}));
+            res.end();
+            return
+        }  
+        }
     }
 
 }

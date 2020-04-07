@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { IAuthenticationService } from "./IAuthenticateService";
+import { IAuthenticationService } from "./IAuthenticationService";
 import { User } from "../Models/UserModel";
 import { IUserService } from "./IUserService";
 const jwt = require('jsonwebtoken');
@@ -20,7 +20,7 @@ export class JWTAuthenticationService implements IAuthenticationService{
     }
 
 
-    public async AuthorizeToken(req:Request,res:Response,authorizationLevel: string):Promise<any>{
+    public async AuthorizeToken(req:Request,res:Response,authorizationLevel: string):Promise<User|null>{
         let user = await this.AuthenticateToken(req,res);
         if(user.authorization == authorizationLevel){
             return user;
@@ -29,7 +29,7 @@ export class JWTAuthenticationService implements IAuthenticationService{
     }
     
 
-    public async AuthenticateToken(req: Request,res: Response): Promise<any>{
+    public async AuthenticateToken(req: Request,res: Response): Promise<User|null>{
         if(await this.TokenIsValid(req,res)){
             let token = this.GetToken(req,res)
             let decoded = jwt.decode(token, {complete: true});

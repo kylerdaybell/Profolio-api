@@ -12,4 +12,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:80/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt5bGVyLmRheWJlbGxAZ21haWwuY29tIiwicGFzc3dvcmQiOiJreWxlciIsImF1dGhvcml6YXRpb24iOiJhZG1pbiIsImlhdCI6MTU4NjA2NDY5Mn0.lI_gsvUopb0-1pIxko1-mSnjmKNGRqv6YrdCLmPlKr4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt5bGVyLmRheWJlbGxAZ21haWwuY29tIiwicGFzc3dvcmQiOiJreWxlciIsImF1dGhvcml6YXRpb24iOiJhZG1pbiIsImlhdCI6MTU4NjI3MTcxNn0.aqxX5uF-zR4z4VEHDJ5pzP80l-xvXo1lnh4H9nEy-fw
+
+###
+POST http://localhost:80/CreatePost

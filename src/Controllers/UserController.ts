@@ -1,11 +1,10 @@
-import { IUserController } from "./IUserController";
 import { Request, Response } from "express";
 import { User } from "../Models/UserModel";
 import { IUserService } from "../Services/IUserService";
-import { IAuthenticationService } from "../Services/IAuthenticateService";
+import { IAuthenticationService } from "../Services/IAuthenticationService";
 
 
-export class UserController implements IUserController{
+export class UserController{
     private iuserservice: IUserService;
     private iauthenticationservice:IAuthenticationService;
     constructor( iuserservice :IUserService,iauthenticationservice:IAuthenticationService){

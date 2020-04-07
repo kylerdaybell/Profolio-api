@@ -1,13 +1,15 @@
 import { IPostService } from "./IPostService";
-import { IUserRepository } from "../Repositories/IUserRepository";
+import {IPostRepository} from "../Repositories/IPostRepository"
+import { User } from "../Models/UserModel";
+import { Post } from "../Models/PostModel";
 
 export class PostService implements IPostService{
-    private iuserrepository: IUserRepository;
-    constructor(iuserrepository: IUserRepository){
-        this.iuserrepository = iuserrepository;
+    private postrepository: IPostRepository;
+    constructor(IPostRepository: IPostRepository){
+        this.postrepository = IPostRepository;
     }
-    CreatePost(user: import("../Models/UserModel").User, post: import("../Models/PostModel").Post): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    CreatePost(user: User, post: Post): Promise<boolean> {
+        return Promise.resolve(true);
     }
 
 }
