@@ -18,7 +18,7 @@ const IUserRepository = new MySqlUserRepository();
 const IPostRepository = new MySqlPostRepository();
 
 //services
-const IUserService = new DummyUserService(IUserRepository);
+const IUserService = new UserService(IUserRepository);
 const IAuthenticationService = new JWTAuthenticationService(IUserService);
 const IPostService = new PostService(IPostRepository);
 

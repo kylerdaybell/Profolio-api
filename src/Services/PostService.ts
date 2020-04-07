@@ -8,7 +8,7 @@ export class PostService implements IPostService{
     constructor(IPostRepository: IPostRepository){
         this.postrepository = IPostRepository;
     }
-    CreatePost(user: User, post: Post): Promise<boolean> {
+    CreatePost(post: Post): Promise<boolean> {
         return Promise.resolve(true);
     }
 
