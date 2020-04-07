@@ -1,6 +1,6 @@
 import { IUserRepository } from "./IUserRepository";
 import { User } from "../Models/UserModel";
-const mysql2 = require("mysql2/promise")
+const mysql2 = require("mysql2/promise");
 
 export class MySqlUserRepository implements IUserRepository{
     public async getConnection(){

@@ -20,7 +20,7 @@ const IPostRepository = new MySqlPostRepository();
 //services
 const IUserService = new UserService(IUserRepository);
 const IAuthenticationService = new JWTAuthenticationService(IUserService);
-const IPostService = new PostService(IPostRepository);
+const IPostService = new PostService(IPostRepository,IUserRepository);
 
 //controllers
 const usercontroller = new UserController(IUserService,IAuthenticationService);
