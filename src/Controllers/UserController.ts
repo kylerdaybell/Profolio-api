@@ -24,26 +24,43 @@ export class UserController{
         }
     }
     async PostLogin(req: Request, res: Response):Promise<void>{
-        let user = new User(null,req.body.User.Email,req.body.User.Password,req.body.User.Authorization);
-        if(await this.iuserservice.ValidateUser(user)){
-            res.write(JSON.stringify({Status:"success",Message:"the user was successfully validated"}));
-            res.end(); 
-        }else {
-            res.write(JSON.stringify({Status:"faliure",Message:"The user does not exsist or the password is incorrect"}));
-            res.end(); 
-        }
+        await this.iauthenticationservice.AuthenticateUser(req,res);
     }
     async PostDeleteUser(req: Request, res: Response):Promise<void>  {
-        let user = new User(null,req.body.User.Email,req.body.User.Password,req.body.User.Authorization);
-        if(await this.iuserservice.RemoveUser(user)){
-            res.write(JSON.stringify({Status:"success",Message:"the user was successfully removed."}));
-            res.end();
-            return 
+        let user = await this.iauthenticationservice.AuthorizeToken(req,res,"admin")
+        let usertobedeleted = new User(null,req.body.User.Email,req.body.User.Password,req.body.User.Authorization);
+        if(user){
+            if(await this.iuserservice.RemoveUser(usertobedeleted)){
+                res.write(JSON.stringify({Status:"success",Message:"the user was successfully removed."}));
+                res.end();
+                return 
+            }else{
+                res.write(JSON.stringify({Status:"faliure",Message:"The user does not exsist or the password is incorrect"}));
+                res.end(); 
+                return
+            }
         }else{
-            res.write(JSON.stringify({Status:"faliure",Message:"The user does not exsist or the password is incorrect"}));
-            res.end(); 
-            return
+            user = await this.iauthenticationservice.AuthenticateToken(req,res);
+            if(user.email == usertobedeleted.email){
+                if(await this.iuserservice.RemoveUser(usertobedeleted)){
+                    res.write(JSON.stringify({Status:"success",Message:"the user was successfully removed."}));
+                    res.end();
+                    return 
+                }else{
+                    res.write(JSON.stringify({Status:"faliure",Message:"The user does not exsist or the password is incorrect"}));
+                    res.end(); 
+                    return
+                }
+            }
+            else{
+                res.write(JSON.stringify({Status:"faliure",Message:"Not Authorized"}));
+                res.end(); 
+                return
+            }
         }
+
+
+
     }
 
     async GetRoot(req: Request,res: Response): Promise<void>{

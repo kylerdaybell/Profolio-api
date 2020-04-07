@@ -3,22 +3,23 @@ Content-Type: application/json
 
 {	
     "User":{
-		"Email":"kyler.daybell@gmail.com",
+		"Email":"kyler.daybell2@gmail.com",
 		"Password":"kyler",
-		"Authorization":"admin"
+		"Authorization":"user"
 	}
 }
 
 ###Delets a user if the token used is an admin token, or if the username in the token matches the username being deleted ie deleteing your own account
 
 POST http://localhost:80/DeleteAccount
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt5bGVyLmRheWJlbGxAZ21haWwuY29tIiwicGFzc3dvcmQiOiJreWxlciIsImF1dGhvcml6YXRpb24iOiJhZG1pbiIsImlhdCI6MTU4NjI3MTcxNn0.aqxX5uF-zR4z4VEHDJ5pzP80l-xvXo1lnh4H9nEy-fw
 Content-Type: application/json
 
 {	
     "User":{
-		"Email":"kyler.daybell@gmail.com",
+		"Email":"kyler.daybell2@gmail.com",
 		"Password":"kyler",
-		"Authorization":"admin"
+		"Authorization":"user"
 	}
 }
 
