@@ -17,7 +17,7 @@ export class UserService implements IUserService {
     }
     public async RemoveUser(user: User): Promise<boolean> {
         const DBUser = await this.iuserrepository.GetExsistingUser(user);
-        if (DBUser.email !== "void" && DBUser.ValidatePassword(user.password)) {
+        if (DBUser.email !== "void") {
             const result = this.iuserrepository.RemoveUser(DBUser);
             if (result) {
                 return true;

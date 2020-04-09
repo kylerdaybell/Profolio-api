@@ -26,9 +26,9 @@ export class UserController {
         await this.iauthenticationservice.AuthenticateUser(req, res);
     }
     public async PostDeleteUser(req: Request, res: Response): Promise<void>  {
-        let user = await this.iauthenticationservice.AuthorizeToken(req, res, "admin");
-        const usertobedeleted = new User(null, req.body.User.Email, req.body.User.Password, req.body.User.Authorization);
-        if (user) {
+        const usertobedeleted = new User(null, req.body.User.Email, "", req.body.User.Authorization);
+        let user:User = await this.iauthenticationservice.AuthenticateToken(req, res);
+        if (user.email == usertobedeleted.email) {
             if (await this.iuserservice.RemoveUser(usertobedeleted)) {
                 res.write(JSON.stringify({Status: "success", Message: "the user was successfully removed."}));
                 res.end();
@@ -38,29 +38,12 @@ export class UserController {
                 res.end();
                 return;
             }
-        } else {
-            user = await this.iauthenticationservice.AuthenticateToken(req, res);
-            if (user.email == usertobedeleted.email) {
-                if (await this.iuserservice.RemoveUser(usertobedeleted)) {
-                    res.write(JSON.stringify({Status: "success", Message: "the user was successfully removed."}));
-                    res.end();
-                    return;
-                } else {
-                    res.write(JSON.stringify({Status: "faliure", Message: "The user does not exsist or the password is incorrect"}));
-                    res.end();
-                    return;
-                }
-            } else {
-                res.write(JSON.stringify({Status: "faliure", Message: "Not Authorized"}));
-                res.end();
-                return;
-            }
         }
 
     }
 
     public async GetRoot(req: Request, res: Response): Promise<void> {
-        const user = await this.iauthenticationservice.AuthorizeToken(req, res, "admin");
+        const user = await this.iauthenticationservice.AuthorizeToken(req, res, "user");
         if (user) {
             const response: string = JSON.stringify({Message: "You are authorized"});
             res.write(response);

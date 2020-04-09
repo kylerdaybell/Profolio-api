@@ -20,7 +20,7 @@ export class JWTAuthenticationService implements IAuthenticationService {
         }
     }
 
-    public async AuthorizeToken(req: Request, res: Response, authorizationLevel: string): Promise<User|null> {
+    public async AuthorizeToken(req: Request, res: Response, authorizationLevel: "none"|"user"|"admin"): Promise<User|null> {
         const user = await this.AuthenticateToken(req, res);
         if (user.authorization == authorizationLevel) {
             return user;

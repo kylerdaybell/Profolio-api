@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors"
 import { UserController } from "./Controllers/UserController";
 import {MySqlUserRepository} from "./Repositories/MySqlUserRepository";
 import * as dotenv from "dotenv";
@@ -30,6 +31,7 @@ const postcontroller = new PostController(IAuthenticationService,IPostService)
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
+app.use(cors())
 
 console.log(process.env.PORT)
 console.log(process.env.ACCESS_TOKEN)
