@@ -1,7 +1,7 @@
-import {User} from "../Models/UserModel"
+import {User} from "../Models/UserModel";
 
-export interface IUserRepository{
-    AddNewUser(user:User):Promise<boolean>;
-    GetExsistingUser(user:User):Promise<User>;
-    RemoveUser(user:User):Promise<boolean>;
-}   
+export interface IUserRepository {
+    AddNewUser(user: User): Promise<boolean>;
+    GetExsistingUser(user: User): Promise<User>;
+    RemoveUser(user: User): Promise<boolean>;
+}
