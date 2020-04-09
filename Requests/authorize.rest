@@ -3,9 +3,9 @@ Content-Type: application/json
 
 {	
     "User":{
-		"Email":"kyler.daybell@gmail.com",
-		"Password":"kyler",
-		"Authorization":"user"
+		"email":"kyler.daybell@gmail.com",
+		"password":"kyler",
+		"authorization":"user"
 	}
 }
 
@@ -17,7 +17,7 @@ Content-Type: application/json
 
 {	
     "User":{
-		"Email":"kyler.daybell@gmail.com",
+		"email":"kyler.daybell@gmail.com"
 	}
 }
 
@@ -28,8 +28,8 @@ Content-Type: application/json
 
 {
     "User":{
-        "Email":"kyler.daybell@gmail.com",
-        "Password":"kyler"
+        "email":"kyler.daybell@gmail.com",
+        "password":"kyler"
     }
 }
 

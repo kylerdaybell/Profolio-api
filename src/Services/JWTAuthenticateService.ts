@@ -11,12 +11,14 @@ export class JWTAuthenticationService implements IAuthenticationService {
     }
 
     public async AuthenticateUser(req: Request, res: Response): Promise<void> {
-        const user  = new User(null, req.body.User.Email, req.body.User.Password, "none");
+        const user  = new User(null, req.body.User.email, req.body.User.password, "none");
         const DBUser = await this.iuserservice.ValidateUser(user);
         if (await this.iuserservice.ValidateUser(user)) {
             const tokenUser = {email: user.email, authorization: DBUser.authorization};
             const accessToken = jwt.sign(tokenUser, process.env.ACCESS_TOKEN);
-            res.json({accessToken});
+            res.json({Status:"success",accessToken});
+            res.end()
+            return
         }
     }
 
