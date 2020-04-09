@@ -18,7 +18,7 @@ export class PostController{
         console.error(req.body)
         let user:User = await this.iauthenticationservice.AuthenticateToken(req,res)
         if(user){
-           let post = new Post(0,user.id,req.body.post.title,req.body.post.content)
+           let post = new Post(0,user.id,req.body.Post.title,req.body.Post.content)
         if(await this.ipostservice.CreatePost(post,user)){
             res.write(JSON.stringify({Status:"success",Message:"Post created successfully"}));
             res.end();
