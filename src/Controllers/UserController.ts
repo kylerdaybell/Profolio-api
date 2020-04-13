@@ -27,7 +27,7 @@ export class UserController {
     }
     public async PostDeleteUser(req: Request, res: Response): Promise<void>  {
         const usertobedeleted = new User(null, req.body.User.email, "", req.body.User.authorization);
-        let user:User = await this.iauthenticationservice.AuthenticateToken(req, res);
+        const user: User = await this.iauthenticationservice.AuthenticateToken(req, res);
         if (user.email == usertobedeleted.email) {
             if (await this.iuserservice.RemoveUser(usertobedeleted)) {
                 res.write(JSON.stringify({Status: "success", Message: "the user was successfully removed."}));
@@ -45,7 +45,7 @@ export class UserController {
     public async GetRoot(req: Request, res: Response): Promise<void> {
         const user = await this.iauthenticationservice.AuthorizeToken(req, res, "user");
         if (user) {
-            const response: string = JSON.stringify({Status: "success",Message: "You are authorized"});
+            const response: string = JSON.stringify({Status: "success", Message: "You are authorized"});
             res.write(response);
             res.end();
         }

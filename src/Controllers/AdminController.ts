@@ -20,8 +20,8 @@ export class AdminController {
         }
     }
 
-    public async PostAdminDeleteUser(req: Request, res:Response): Promise<void>{
-        let user = await this.iauthenticationservice.AuthorizeToken(req, res, "admin");
+    public async PostAdminDeleteUser(req: Request, res: Response): Promise<void> {
+        const user = await this.iauthenticationservice.AuthorizeToken(req, res, "admin");
         const usertobedeleted = new User(null, req.body.User.Email, req.body.User.Password, req.body.User.Authorization);
         if (user) {
             if (await this.iuserservice.RemoveUser(usertobedeleted)) {
@@ -33,7 +33,7 @@ export class AdminController {
                 res.end();
                 return;
             }
-        }else{
+        } else {
             res.write(JSON.stringify({Status: "faliure", Message: "Not Authorized"}));
             res.end();
             return;

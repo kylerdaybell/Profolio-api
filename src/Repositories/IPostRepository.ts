@@ -1,5 +1,5 @@
 import { Post } from "../Models/PostModel";
 
-export interface IPostRepository{
-    CreatePost(post:Post):Promise<boolean>;
+export interface IPostRepository {
+    CreatePost(post: Post): Promise<boolean>;
 }

@@ -1,14 +1,14 @@
-import { IUserRepository } from "./IUserRepository";
 import { User } from "../Models/UserModel";
+import { IUserRepository } from "./IUserRepository";
 
-export class MockUserRepository implements IUserRepository{
-    AddNewUser(user: User): Promise<boolean> {
-        throw new Error("Method not implemented.");
-    }    
-    GetExsistingUser(user: User): Promise<User> {
+export class MockUserRepository implements IUserRepository {
+    public AddNewUser(user: User): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
-    RemoveUser(user: User): Promise<boolean> {
+    public GetExsistingUser(user: User): Promise<User> {
+        throw new Error("Method not implemented.");
+    }
+    public RemoveUser(user: User): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
 }

@@ -16,9 +16,9 @@ export class JWTAuthenticationService implements IAuthenticationService {
         if (await this.iuserservice.ValidateUser(user)) {
             const tokenUser = {email: user.email, authorization: DBUser.authorization};
             const accessToken = jwt.sign(tokenUser, process.env.ACCESS_TOKEN);
-            res.json({Status:"success",accessToken});
-            res.end()
-            return
+            res.json({Status: "success", accessToken});
+            res.end();
+            return;
         }
     }
 
@@ -27,6 +27,7 @@ export class JWTAuthenticationService implements IAuthenticationService {
         if (user.authorization == authorizationLevel) {
             return user;
         }
+        res.sendStatus(403);
         return null;
     }
 
@@ -61,7 +62,6 @@ export class JWTAuthenticationService implements IAuthenticationService {
 
     private GetToken(req: Request, res: Response): any {
         const authHeader = req.headers.authorization;
-        console.log(process.env.ACCESS_TOKEN);
         const token = authHeader && authHeader.split(" ")[1];
         return token;
     }
