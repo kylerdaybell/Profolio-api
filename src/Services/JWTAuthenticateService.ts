@@ -32,8 +32,8 @@ export class JWTAuthenticationService implements IAuthenticationService {
 
     public async AuthenticateToken(req: Request, res: Response): Promise<User|null> {
         if (await this.TokenIsValid(req, res)) {
-            const token = this.GetToken(req, res);
-            const decoded = jwt.decode(token, {complete: true});
+            const token = await this.GetToken(req, res);
+            const decoded = await jwt.decode(token, {complete: true});
             const user = new User(null, decoded.payload.email, "", decoded.payload.authorization);
             return user;
         }

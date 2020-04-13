@@ -16,7 +16,7 @@ export class PostController{
     }
     public async PostCreatePost(req: Request, res: Response): Promise<void> {
         console.error(req.body)
-        let user:User = await this.iauthenticationservice.AuthenticateToken(req,res)
+        const user = await this.iauthenticationservice.AuthenticateToken(req,res);
         if(user){
            let post = new Post(0,user.id,req.body.Post.title,req.body.Post.content)
         if(await this.ipostservice.CreatePost(post,user)){
