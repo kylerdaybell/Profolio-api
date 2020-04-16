@@ -1,8 +1,8 @@
-import {UserService} from "../Services/UserService";
 import {MockUserRepository} from "../Repositories/MockUserRepository";
+import {UserService} from "../Services/UserService";
 
-let userService = new UserService(new MockUserRepository());
+const userService = new UserService(new MockUserRepository());
 
-test("this is a fake test",()=>{
+test("this is a fake test", () => {
     expect(true).toBe(true);
-})
+});

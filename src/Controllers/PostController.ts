@@ -27,9 +27,9 @@ export class PostController {
             }
         }
     }
-    public async GetTopTenPosts(req:Request,res:Response): Promise<void>{
+    public async GetTopTenPosts(req: Request, res: Response): Promise<void> {
         const user = await this.iauthenticationservice.AuthenticateToken(req, res);
-        if(user){
+        if (user) {
 
         }
     }

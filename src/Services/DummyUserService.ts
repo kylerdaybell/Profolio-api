@@ -5,9 +5,9 @@ import {IUserService} from "./IUserService";
 export class DummyUserService implements IUserService {
     constructor(iuserrepository: IUserRepository) {
     }
-    public async ValidateUser(user: User): Promise<boolean> {
+    ValidateUser(user: User): Promise<User> {
         if (user.email == "kyler.daybell@gmail.com" && user.password == "kyler" && user.authorization == "admin") {
-            return true;
+            return Promise.resolve(new User(0,"kyler.daybell@gmail.com","kyler","admin"));
         }
     }
     public async RemoveUser(user: User): Promise<boolean> {

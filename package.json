@@ -4,12 +4,14 @@
   "description": "A social networking API",
   "main": "index.js",
   "scripts": {
-    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "prebuild": "",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node .",
+    "start": "node ./dist/.",
     "dev": "ts-node-dev src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "deploy":"pm2 start ./dist/.",
+    "stop":"pm2 stop all"
   },
   "repository": {
     "type": "git",
