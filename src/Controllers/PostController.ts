@@ -15,7 +15,7 @@ export class PostController {
     public async PostCreatePost(req: Request, res: Response): Promise<void> {
         const user = await this.iauthenticationservice.AuthenticateToken(req, res);
         if (user) {
-            const post = new Post(0, user.id, req.body.Post.title, req.body.Post.content);
+            const post = new Post(0, user.id,"", req.body.Post.title, req.body.Post.content);
             if (await this.ipostservice.CreatePost(post, user)) {
             res.write(JSON.stringify({Status: "success", Message: "Post created successfully"}));
             res.end();
@@ -30,7 +30,10 @@ export class PostController {
     public async GetTopTenPosts(req: Request, res: Response): Promise<void> {
         const user = await this.iauthenticationservice.AuthenticateToken(req, res);
         if (user) {
-
+            let PostList = await this.ipostservice.GetTopTenPosts();
+            res.write(JSON.stringify({Status: "success",Data:PostList}));
+            res.end();
+            return;
         }
     }
 

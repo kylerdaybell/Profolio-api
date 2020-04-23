@@ -36,5 +36,4 @@ Content-Type: application/json
 ### this root route validates that a token is correct, for dev purposes only. 
 
 GET http://localhost:80/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt5bGVyLmRheWJlbGxAZ21haWwuY29tIiwiYXV0aG9yaXphdGlvbiI6InVzZXIiLCJpYXQiOjE1ODY0NTUwMTh9.19-DRy1l4injPhqwKReTcFUjSifd1Kx0A8UeJclhegc
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt5bGVyLmRheWJlbGxAZ21haWwuY29tIiwiYXV0aG9yaXphdGlvbiI6InVzZXIiLCJpYXQiOjE1ODc2NTg3OTAsImV4cCI6MTU4NzY1ODk3MH0.k2t92YObI15THhwUeWgbRIWDDs3BqhDn8CWjPNNz83M

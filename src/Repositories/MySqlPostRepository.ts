@@ -3,7 +3,7 @@ import { IPostRepository } from "./IPostRepository";
 const mysql2 = require("mysql2/promise");
 
 export class MySqlPostRepository implements IPostRepository {
-    public async getConnection() {
+    private async getConnection() {
         const con = await mysql2.createConnection({
             host: process.env.DB_HOST,
             user: process.env.DB_USER,
@@ -21,6 +21,22 @@ export class MySqlPostRepository implements IPostRepository {
         } catch (error) {
             console.log(error);
             return Promise.resolve(false);
+        } finally {
+            con.end();
+        }
+    }
+    public async GetTopTenPosts(): Promise<Post[]> {
+        const con = await this.getConnection();
+        try {
+            const [rows] = await con.execute("SELECT USER.EMAIL , POST.ID , POST.USERID, POST.TITLE,POST.CONTENT FROM POST INNER JOIN USER on (POST.USERID = USER.ID) LIMIT 10;");
+            let postarray: Post[] = []
+            for(let i = 0; i < rows.length; i++){
+                postarray.push(new Post(rows[i].ID,rows[i].USERID,rows[i].EMAIL,rows[i].TITLE,rows[i].CONTENT));
+            }
+            return postarray
+        } catch (error) {
+            console.log(error);
+            return null
         } finally {
             con.end();
         }

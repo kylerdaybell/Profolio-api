@@ -14,11 +14,24 @@ export class PostService implements IPostService {
     public async CreatePost(post: Post, user: User): Promise<boolean> {
         try {
             const DBUser = await this.userrepository.GetExsistingUser(user);
-            const realpost = new Post(0, DBUser.id, post.title, post.content);
+            const realpost = new Post(0, DBUser.id,DBUser.email, post.title, post.content);
             return await this.postrepository.CreatePost(realpost);
         } catch (e) {
             return Promise.resolve(false);
         }
     }
-
+    
+    public async GetTopTenPosts(): Promise<Post[]> {
+        try{
+            let postarray = await this.postrepository.GetTopTenPosts()
+            if(postarray){
+                return postarray;
+            }else{
+                throw new Error("No Posts Found")
+            }
+        }catch (e) {
+            let postarray: Post[] = []
+            return postarray;
+        }
+    }
 }

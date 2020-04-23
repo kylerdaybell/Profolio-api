@@ -15,7 +15,7 @@ export class JWTAuthenticationService implements IAuthenticationService {
         const DBUser = await this.iuserservice.ValidateUser(user);
         if (await this.iuserservice.ValidateUser(user)) {
             const tokenUser = {email: user.email, authorization: DBUser.authorization};
-            const accessToken = jwt.sign(tokenUser, process.env.ACCESS_TOKEN);
+            const accessToken = jwt.sign(tokenUser, process.env.ACCESS_TOKEN,{expiresIn: "30m"});
             res.json({Status: "success", accessToken});
             res.end();
             return;
@@ -51,6 +51,7 @@ export class JWTAuthenticationService implements IAuthenticationService {
             jwt.verify(token, process.env.ACCESS_TOKEN, (err: any, user: any) => {
                 if (err) {
                     res.sendStatus(403);
+                    console.log(err);
                     throw new Error("Invalid Token");
                 }
             });
