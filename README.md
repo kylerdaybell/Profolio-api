@@ -1,2 +1,2 @@
-# Pop-API
-A social networking API
+# Profolio-API
+A Photosharing API
